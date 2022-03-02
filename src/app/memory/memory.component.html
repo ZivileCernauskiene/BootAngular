@@ -1,0 +1,41 @@
+<p>memory works!</p>
+<div class="main">
+
+  <h1 class="heading">Welcome to memory game</h1>
+
+  <div class="before" *ngIf="!start">
+      <br>
+      <p style="font-size: 25px;">How much can you solve?</p>
+      <br>
+      <p>Elements used: {{maxUsedClasses}} </p>
+      <div>
+          <div>
+              <button (click)=usedClases(-1)>Less</button>
+              <button (click)=usedClases(1)>More</button>
+          </div>
+          <div>
+              <button class="start btn " (click)=starting()>Start</button>
+          </div>
+      </div>
+
+
+  </div>
+  <div class="before" *ngIf="start">
+      <div class="game">
+          <div [ngStyle]="{'flex':maxUsedClasses%2==0&&maxUsedClasses<16?'25%':(maxUsedClasses%3==0&&maxUsedClasses<22)?'16.3%':(maxUsedClasses%4==0&&maxUsedClasses<61)?'12.5%':(maxUsedClasses%5==0&&maxUsedClasses<44)?'20%':'1'}" class="flexed" *ngFor="let x of shuffledCards, let ind=index">
+              <div (click)=flip(ind) [className]="x.open ? x.className : 'full'">
+
+              </div>
+          </div>
+      </div>
+      <button class="btn btn-primary" (click)=restarting()>Restart</button>
+  </div>
+
+  <div *ngIf="victory" class="before">
+      <div>
+          <p class="victory text text-center">You win </p>
+      </div>
+
+
+  </div>
+</div>

@@ -1,0 +1,68 @@
+
+<h1 class="page-header text-center">Welcome</h1>
+
+<p class="text-primary text-end">
+This is a place for my projects. Main page is for preview.
+</p>
+
+<p  class="text-center">
+  <button type="button" class="btn btn-outline-primary" (click)="startShow()" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+    aria-controls="collapseExample">
+    Hand made slideshow
+  </button>
+</p>
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+  <div class="section" (mouseover)="stopShow()" (mouseleave)="startShow()">
+    <div class="carousel-container">
+        <div class="carousel">
+            <img class="img" [src]="images[slideIndex-1]" alt="">
+            <p class="text">kazkas</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+<p class="text-center">
+  <button type="button" class="btn btn-primary " (click)="carousel.toggle()" [attr.aria-expanded]="!isCarousel"
+    aria-controls="collapseExample">
+    Bootstrap slideshow
+  </button>
+</p>
+
+<div #carousel="ngbCollapse"  [(ngbCollapse)]="isCarousel">
+
+<ngb-carousel #carousel [interval]="2000" [pauseOnHover]="pauseOnHover" [pauseOnFocus]="pauseOnFocus" (slide)="onSlide($event)">
+  <ng-template ngbSlide *ngFor="let img of images; index as i">
+    <div class="section">
+      <div class="carousel-container">
+          <div class="carousel">
+              <img class="img" [src]="img" alt="">
+              <p class="text text-center text-primary">{{imgText[i]}}</p>
+          </div>
+      </div>
+    </div>
+  </ng-template>
+</ngb-carousel>
+
+<hr>
+
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="pauseOnHover" [(ngModel)]="pauseOnHover">
+  <label class="form-check-label" for="pauseOnHover">Pause on hover</label>
+</div>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="pauseOnFocus" [(ngModel)]="pauseOnFocus">
+  <label class="form-check-label" for="pauseOnFocus">Pause on focus</label>
+</div>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="unpauseOnArrow" [(ngModel)]="unpauseOnArrow">
+  <label class="form-check-label" for="unpauseOnArrow">Unpause when clicking on arrows</label>
+</div>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="pauseOnIndicator" [(ngModel)]="pauseOnIndicator">
+  <label class="form-check-label" for="pauseOnIndicator">Pause when clicking on navigation indicator</label>
+</div>
+<button type="button" (click)="togglePaused()" class="btn btn-outline-dark btn-sm">
+  {{paused ? 'Cycle' : 'Pause' }}
+</button>
+</div>
