@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FireAuthService } from '../fire-auth.service';
 
 @Component({
   selector: 'app-login-register',
@@ -10,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 
 export class LoginRegisterComponent implements OnInit {
 
-  constructor(private fire:AngularFirestore, private form:FormBuilder) {
+  constructor(private fire:AngularFirestore, private form:FormBuilder, private fireAuth:FireAuthService) {
     this.fire.collection('Color').valueChanges().subscribe((x:any)=>this.naujas=x)
    }
 
@@ -24,7 +25,7 @@ export class LoginRegisterComponent implements OnInit {
 
   login = this.form.group({
     email:['', Validators.required, Validators.email],
-    password:['', Validators.required]
+    password:['', Validators.required, Validators.minLength(6)]
   })
 
   get control(){
@@ -33,12 +34,10 @@ export class LoginRegisterComponent implements OnInit {
 
   submit(){
     if(this.login.valid){
-      console.log(this.login.value)
-    this.login.reset()
-    alert('you logged in')
+      this.fireAuth.signIn(this.login.value.email, this.login.value.password)
     }
     else {
-      alert('bad')
+      alert('Please fill All form')
     }
 
   }
