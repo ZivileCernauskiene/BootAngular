@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { User } from 'firebase/auth';
+import { Observable } from 'rxjs';
 
 
 
@@ -20,7 +22,7 @@ export class FireAuthService {
     this.fireAuth.createUserWithEmailAndPassword(email, password).then(res=>{
       console.log("Registration successful. You can now login with your email: " + email)
     }).catch(err=>{
-      console.log(err.message)
+      alert(err.message + '\n Please try again.')
     })
   }
 
@@ -40,4 +42,14 @@ export class FireAuthService {
     })
   }
 
+  async kazkas(){
+    console.log(this.user)
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree{
+    if(this.user){
+      return true
+    }
+    return false
+  }
 }

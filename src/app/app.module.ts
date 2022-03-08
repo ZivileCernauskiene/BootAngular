@@ -19,6 +19,8 @@ import { LoginRegisterComponent } from './login-register/login-register.componen
 import { AngularFireModule } from '@angular/fire/compat/';
 import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { RegisterComponent } from './register/register.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -37,6 +39,7 @@ import { RegisterComponent } from './register/register.component';
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    DragDropModule,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
@@ -45,6 +48,7 @@ import { RegisterComponent } from './register/register.component';
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     ReactiveFormsModule,
+    NoopAnimationsModule,
 
 
   ],

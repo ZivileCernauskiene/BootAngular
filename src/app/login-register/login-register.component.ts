@@ -24,8 +24,8 @@ export class LoginRegisterComponent implements OnInit {
   }
 
   login = this.form.group({
-    email:['', Validators.required, Validators.email],
-    password:['', Validators.required, Validators.minLength(6)]
+    email:['', [Validators.required, Validators.email]],
+    password:['', [Validators.required, Validators.minLength(6)]]
   })
 
   get control(){

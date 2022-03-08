@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FireAuthService } from '../fire-auth.service';
 import { ValidationService } from '../validation.service';
 
 @Component({
@@ -10,15 +11,15 @@ import { ValidationService } from '../validation.service';
 })
 export class RegisterComponent implements OnInit {
 
-    constructor(private from: FormBuilder, private validation: ValidationService, private auth: AngularFireAuth) { }
+    constructor(private from: FormBuilder, private validation: ValidationService, private auth: AngularFireAuth, private fire:FireAuthService) { }
 
     ngOnInit(): void {
     }
 
     register = this.from.group({
         name: ['', Validators.required],
-        password: ['', Validators.required, Validators.minLength(6)],
-        password2: ['', Validators.required, Validators.minLength(6)],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        password2: ['', [Validators.required, Validators.minLength(6)]],
         email: ['', [Validators.email, Validators.required]]
     },
         {
@@ -28,17 +29,15 @@ export class RegisterComponent implements OnInit {
 
 
     submit() {
-        console.log('submit')
+        console.log(this.register.value)
 
         if (this.register.valid) {
             console.log(this.register.value)
-            this.auth.createUserWithEmailAndPassword(this.register.value.email, this.register.value.password).then(res => {
-                alert('sveikinu'); console.log(res)
-            }).catch(err => { console.log(err.message); alert(err.message) })
+            this.fire.signUp(this.register.value.email, this.register.value.password)
 
             this.register.reset()
         }
-        else alert('bad')
+        else alert('invalid form')
     }
 
     checkLengt(x:string)

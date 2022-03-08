@@ -20,14 +20,14 @@
                 <div class="form-outline mb-4">
                   <input formControlName="email" type="email" id="form3Example3cg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example3cg">Your Email</label>
-                  <span class="text-danger" *ngIf="(control.email.errors || !checkLengt(register.value.email)) && control.email.touched ">
+                  <span class="text-danger" *ngIf="(control.email.errors ) && control.email.touched ">
                     Email is required
                   </span>
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input formControlName="password" type="password" id="form3Example4cg" class="form-control form-control-lg" />
-                  <label class="form-label" for="form3Example4cg">Password</label>
+                  <input formControlName="password" type="password" id="password" class="form-control form-control-lg" />
+                  <label class="form-label" for="password">Password</label>
                   <span class="text-danger" *ngIf="(control.password.errors || !checkLengt(register.value.password) ) && control.password.touched">
                     Passwords min length 6
                   </span>
@@ -36,7 +36,7 @@
                 <div class="form-outline mb-4">
                   <input formControlName="password2" type="password" id="form3Example4cdg" class="form-control form-control-lg" />
                   <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                  <span class="text-danger" *ngIf="(control.password2.errors || control.password!=control.password2 || !checkLengt(register.value.password2)) && control.password2.touched">
+                  <span class="text-danger" *ngIf="(control.password2.errors ) && control.password2.touched">
                     Passwords must match
                   </span>
                 </div>
